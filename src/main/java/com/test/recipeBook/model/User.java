@@ -1,10 +1,11 @@
 package com.test.recipeBook.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -32,5 +33,5 @@ public class User {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn
-    List<Recipe> myRecipes;
+    List<Recipe> myRecipes = new ArrayList<>();
 }

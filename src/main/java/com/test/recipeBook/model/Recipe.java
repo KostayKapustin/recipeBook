@@ -1,10 +1,11 @@
 package com.test.recipeBook.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -29,7 +30,7 @@ public class Recipe {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "tag_recipe_id")
-    List<Tag> tags;
+    List<Tag> tags = new ArrayList<>();
 
     @Column(name = "cookingTime")
     Integer cookingTime;
@@ -39,15 +40,17 @@ public class Recipe {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "ingredient_recipe_id")
-    List<Ingredient> ingredients;
+    List<Ingredient> ingredients = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
-    List<User> favorites;
+    List<User> favorites = new ArrayList<>();
+
+
 
     @ManyToMany(fetch = FetchType.LAZY)
-    List<User> likes;
+    List<User> likes = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name="recipe_descriptionStep", joinColumns = @JoinColumn(name = "descriptionStep_recipe_id"))
-    List<String> descriptionStep;
+    List<String> descriptionStep = new ArrayList<>();
 }
