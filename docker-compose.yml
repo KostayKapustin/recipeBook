@@ -3,7 +3,7 @@ services:
   redis:
     image: "redis:alpine"
 
-    command: redis-server --requirepass sOmE_sEcUrE_pAsS
+    command: redis-server --requirepass redispw
 
     ports:
       - "6379:6379"

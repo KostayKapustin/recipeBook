@@ -5,7 +5,10 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -34,4 +37,5 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn
     List<Recipe> myRecipes = new ArrayList<>();
+
 }

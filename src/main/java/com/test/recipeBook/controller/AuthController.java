@@ -1,36 +1,33 @@
 package com.test.recipeBook.controller;
 
-import com.test.recipeBook.model.User;
-import com.test.recipeBook.service.UserService;
-import org.springframework.security.core.Authentication;
-import org.springframework.http.MediaType;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
+import com.test.recipeBook.model.AuthenticationTokenImpl;
+import com.test.recipeBook.service.RedisService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Objects;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/user")
 public class AuthController {
 
-    private UserService service;
+    private RedisService service;
 
-    public AuthController(UserService service) {
-        this.service = service;
+    @GetMapping()
+    public String getName(AuthenticationTokenImpl auth, HttpServletResponse response) {
+        return auth.getPrincipal().toString();
     }
 
-    @PostMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody User getAuthUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null) {
-            return null;
-        }
-        Object principal = auth.getPrincipal();
-        User user = (principal instanceof User) ? (User) principal : null;
-        return Objects.nonNull(user) ? this.service.getByLogin(user.getName()) : null;
+    @RequestMapping(value = "/processor", method = RequestMethod.GET)
+    public Integer getProcessor(AuthenticationTokenImpl auth, HttpServletResponse response) {
+        return Runtime.getRuntime().availableProcessors();
     }
 
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(AuthenticationTokenImpl auth, HttpServletResponse response) {
+        service.setValue(auth.getPrincipal().toString().toLowerCase(), "");
+        return "Logout Successfully";
+    }
 }
