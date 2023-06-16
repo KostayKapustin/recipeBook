@@ -1,6 +1,7 @@
 package com.test.recipeBook.model;
 
 import javax.persistence.*;
+
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -25,7 +26,7 @@ public class Recipe {
     @Column(name = "imagePath")
     String imagePath;
 
-    @Column(name = "recipe_description",length = 150)
+    @Column(name = "recipe_description", length = 150)
     String description;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -43,14 +44,15 @@ public class Recipe {
     List<Ingredient> ingredients = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "favorite_recipe_id")
     List<User> favorites = new ArrayList<>();
 
 
-
     @ManyToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "like_recipe_id")
     List<User> likes = new ArrayList<>();
 
     @ElementCollection
-    @CollectionTable(name="recipe_descriptionStep", joinColumns = @JoinColumn(name = "descriptionStep_recipe_id"))
+    @CollectionTable(name = "recipe_descriptionStep", joinColumns = @JoinColumn(name = "descriptionStep_recipe_id"))
     List<String> descriptionStep = new ArrayList<>();
 }

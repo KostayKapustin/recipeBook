@@ -1,6 +1,6 @@
 package com.test.recipeBook.controller;
 
-import com.test.recipeBook.model.AuthenticationTokenImpl;
+import com.test.recipeBook.model.authentication.AuthenticationTokenImpl;
 import com.test.recipeBook.service.RedisService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

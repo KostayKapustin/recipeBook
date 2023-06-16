@@ -2,22 +2,27 @@ version: '3.9'
 services:
   redis:
     image: "redis:alpine"
-
     command: redis-server --requirepass redispw
-
     ports:
       - "6379:6379"
-
     volumes:
       - $PWD/redis-data:/var/lib/redis
         - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
-
     environment:
       - REDIS_REPLICATION_MODE=master
-
     networks:
       node_net:
         ipv4_address: 172.28.1.4
+
+  postgres:
+    image: postgres:14-alpine
+    container_name: recipe_book_container
+    ports:
+      - "6542:5432"
+    environment:
+      - POSTGRES_DB=recipe_book
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
 
 # networking for the Redis container
 networks:

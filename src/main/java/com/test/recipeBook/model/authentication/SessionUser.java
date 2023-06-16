@@ -1,4 +1,4 @@
-package com.test.recipeBook.model;
+package com.test.recipeBook.model.authentication;
 
 import lombok.Data;
 

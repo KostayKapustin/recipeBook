@@ -1,7 +1,7 @@
 package com.test.recipeBook.security;
 
-import com.test.recipeBook.model.AuthenticationTokenImpl;
-import com.test.recipeBook.model.SessionUser;
+import com.test.recipeBook.model.authentication.AuthenticationTokenImpl;
+import com.test.recipeBook.model.authentication.SessionUser;
 import com.test.recipeBook.service.RedisService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

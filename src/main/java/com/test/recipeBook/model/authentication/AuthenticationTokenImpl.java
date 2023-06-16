@@ -1,4 +1,4 @@
-package com.test.recipeBook.model;
+package com.test.recipeBook.model.authentication;
 
 import lombok.Setter;
 import lombok.ToString;
@@ -22,7 +22,7 @@ public class AuthenticationTokenImpl extends AbstractAuthenticationToken {
     }
 
     public void authenticate() {
-        if (getDetails() != null && getDetails() instanceof User && !((SessionUser) getDetails()).hasExpired()) {
+        if (getDetails() != null && getDetails() instanceof SessionUser && !((SessionUser) getDetails()).hasExpired()) {
             setAuthenticated(true);
         } else {
             setAuthenticated(false);

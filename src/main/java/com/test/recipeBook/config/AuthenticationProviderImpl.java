@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import com.test.recipeBook.model.AuthenticationTokenImpl;
-import com.test.recipeBook.model.SessionUser;
+import com.test.recipeBook.model.authentication.AuthenticationTokenImpl;
+import com.test.recipeBook.model.authentication.SessionUser;
 import com.test.recipeBook.service.RedisService;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

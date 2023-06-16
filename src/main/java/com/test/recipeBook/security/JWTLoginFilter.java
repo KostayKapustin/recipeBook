@@ -1,8 +1,8 @@
 package com.test.recipeBook.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.test.recipeBook.model.AuthenticationTokenImpl;
-import com.test.recipeBook.model.SessionUser;
+import com.test.recipeBook.model.authentication.AuthenticationTokenImpl;
+import com.test.recipeBook.model.authentication.SessionUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
