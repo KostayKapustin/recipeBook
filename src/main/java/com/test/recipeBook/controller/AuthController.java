@@ -1,33 +1,41 @@
 package com.test.recipeBook.controller;
 
-import com.test.recipeBook.model.authentication.AuthenticationTokenImpl;
-import com.test.recipeBook.service.RedisService;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.test.recipeBook.model.authentication.JwtRequest;
+import com.test.recipeBook.model.authentication.JwtResponse;
+import com.test.recipeBook.model.authentication.RefreshJwtRequest;
+import com.test.recipeBook.security.AuthService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.security.auth.message.AuthException;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("api/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
-    private RedisService service;
+    private final AuthService authService;
 
-    @GetMapping()
-    public String getName(AuthenticationTokenImpl auth, HttpServletResponse response) {
-        return auth.getPrincipal().toString();
+    @PostMapping("login")
+    public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest authRequest) throws AuthException {
+        final JwtResponse token = authService.login(authRequest);
+        return ResponseEntity.ok(token);
     }
 
-    @RequestMapping(value = "/processor", method = RequestMethod.GET)
-    public Integer getProcessor(AuthenticationTokenImpl auth, HttpServletResponse response) {
-        return Runtime.getRuntime().availableProcessors();
+    @PostMapping("token")
+    public ResponseEntity<JwtResponse> getNewAccessToken(@RequestBody RefreshJwtRequest request) throws AuthException {
+        final JwtResponse token = authService.getAccessToken(request.getRefreshToken());
+        return ResponseEntity.ok(token);
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(AuthenticationTokenImpl auth, HttpServletResponse response) {
-        service.setValue(auth.getPrincipal().toString().toLowerCase(), "");
-        return "Logout Successfully";
+    @PostMapping("refresh")
+    public ResponseEntity<JwtResponse> getNewRefreshToken(@RequestBody RefreshJwtRequest request) throws AuthException {
+        final JwtResponse token = authService.refresh(request.getRefreshToken());
+        return ResponseEntity.ok(token);
     }
+
 }

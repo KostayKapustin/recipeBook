@@ -1,18 +1,18 @@
 package com.test.recipeBook.model.authentication;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-@Data
-public class SessionUser {
+@Setter
+@Getter
+public class JwtRequest {
 
-    private String username;
-
+    private String login;
     private String password;
-
     private Date created;
 
     public boolean hasExpired() {
@@ -23,4 +23,5 @@ public class SessionUser {
         localDateTime = localDateTime.plusHours(1);
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant()).before(new Date());
     }
+
 }

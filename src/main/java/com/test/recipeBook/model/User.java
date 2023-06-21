@@ -1,14 +1,11 @@
 package com.test.recipeBook.model;
 
-import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -38,4 +35,16 @@ public class User {
     @JoinColumn
     List<Recipe> myRecipes = new ArrayList<>();
 
+    public User(Long id, String name, String login, String password, String description, List<Recipe> myRecipes) {
+        this.id = id;
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.description = description;
+        this.myRecipes = myRecipes;
+    }
+
+    public User() {
+
+    }
 }
