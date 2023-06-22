@@ -7,10 +7,9 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.security.auth.message.AuthException;
 import javax.servlet.http.HttpServletResponse;
 
 @RestControllerAdvice
@@ -18,17 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 public class SecurityExceptionHandler {
 
 
-    @ExceptionHandler({AuthenticationException.class, SessionAuthenticationException.class})
-    public ErrorResponse handleAuthenticationException(RuntimeException e, HttpServletRequest request, HttpServletResponse response){
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        return new ErrorResponse(e.getClass().toString(), e.getMessage(), "Элемент не найден",
-                HttpStatus.NOT_FOUND.toString());
-    }
-
-    @ExceptionHandler({BadCredentialsException.class})
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ErrorResponse handleConstraintViolationException(BadCredentialsException e) {
-        return new ErrorResponse(e.getClass().toString(), e.getMessage(), "Исключение ограничения",
+    @ExceptionHandler({AuthenticationException.class, SessionAuthenticationException.class, BadCredentialsException.class,
+            AuthException.class})
+    public ErrorResponse handleAuthenticationException(RuntimeException e, HttpServletResponse response){
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        log.info(HttpStatus.FORBIDDEN + ": " + e.getMessage());
+        return new ErrorResponse(e.getClass().toString(), e.getMessage(), "Ошибка авторизации",
                 HttpStatus.FORBIDDEN.toString());
     }
 }

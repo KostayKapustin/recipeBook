@@ -31,13 +31,12 @@ public class SecurityConfig {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeHttpRequests(
-                        authz -> authz
-                                .antMatchers("/api/auth/login", "/api/auth/token").permitAll()
+                .authorizeRequests()
+                                .antMatchers("/api/auth/login", "/api/auth/token", "/swagger-ui/","/swagger-ui.html","/swagger-ui/index.html","/v3/api-docs").permitAll()
                                 .anyRequest().authenticated()
                                 .and()
                                 .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                ).build();
+                .build();
     }
 
 }

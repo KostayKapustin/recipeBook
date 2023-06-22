@@ -1,11 +1,11 @@
-package com.test.recipeBook.security;
+package com.test.recipeBook.service;
 
+import com.test.recipeBook.exception.UserNotFoundException;
 import com.test.recipeBook.model.User;
 import com.test.recipeBook.model.authentication.JwtAuthentication;
 import com.test.recipeBook.model.authentication.JwtRequest;
 import com.test.recipeBook.model.authentication.JwtResponse;
-import com.test.recipeBook.service.RedisService;
-import com.test.recipeBook.service.UserService;
+import com.test.recipeBook.security.JwtProvider;
 import io.jsonwebtoken.Claims;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class AuthService {
 
     public JwtResponse login(@NonNull JwtRequest authRequest) throws AuthException {
         final User user = userService.getByLogin(authRequest.getLogin())
-                .orElseThrow(() -> new AuthException("Пользователь не найден"));
+                .orElseThrow(() -> new UserNotFoundException(authRequest.getLogin()));
         if (user.getPassword().equals(authRequest.getPassword())) {
             final String accessToken = jwtProvider.generateAccessToken(user);
             final String refreshToken = jwtProvider.generateRefreshToken(user);
@@ -42,12 +42,12 @@ public class AuthService {
             final String saveRefreshToken = (String) service.getValue(login);
             if (saveRefreshToken != null && saveRefreshToken.equals(refreshToken)) {
                 final User user = userService.getByLogin(login)
-                        .orElseThrow(() -> new AuthException("Пользователь не найден"));
+                        .orElseThrow(() -> new UserNotFoundException(login));
                 final String accessToken = jwtProvider.generateAccessToken(user);
                 return new JwtResponse(accessToken, null);
             }
         }
-        return new JwtResponse(null, null);
+        throw  new AuthException("Невалидный JWT токен");
     }
 
     public JwtResponse refresh(@NonNull String refreshToken) throws AuthException {
@@ -57,7 +57,7 @@ public class AuthService {
             final String saveRefreshToken = (String) service.getValue(login);
             if (saveRefreshToken != null && saveRefreshToken.equals(refreshToken)) {
                 final User user = userService.getByLogin(login)
-                        .orElseThrow(() -> new AuthException("Пользователь не найден"));
+                        .orElseThrow(() -> new UserNotFoundException(login));
                 final String accessToken = jwtProvider.generateAccessToken(user);
                 final String newRefreshToken = jwtProvider.generateRefreshToken(user);
                 service.setValue(user.getLogin(), newRefreshToken);
