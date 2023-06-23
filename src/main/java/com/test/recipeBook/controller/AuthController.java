@@ -4,8 +4,6 @@ import com.test.recipeBook.model.authentication.JwtRequest;
 import com.test.recipeBook.model.authentication.JwtResponse;
 import com.test.recipeBook.model.authentication.RefreshJwtRequest;
 import com.test.recipeBook.service.AuthService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

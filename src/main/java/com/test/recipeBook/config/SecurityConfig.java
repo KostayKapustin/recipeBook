@@ -32,7 +32,13 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                                .antMatchers("/api/auth/login", "/api/auth/token", "/swagger-ui/","/swagger-ui.html","/swagger-ui/index.html","/v3/api-docs").permitAll()
+                                .antMatchers("/api/auth/login", "/api/auth/token",
+                                        "/v2/api-docs",
+                                        "/configuration/ui",
+                                        "/swagger-resources/**",
+                                        "/configuration/security",
+                                        "/swagger-ui.html",
+                                        "/webjars/**").permitAll()
                                 .anyRequest().authenticated()
                                 .and()
                                 .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
