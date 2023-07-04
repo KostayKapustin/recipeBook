@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,15 +21,18 @@ public class User {
     Long id;
 
     @Column(name = "user_name", nullable = false)
+    @Size(max = 50)
     String name;
 
     @Column(name = "login", nullable = false, unique = true)
+    @Size(max = 50)
     String login;
 
     @Column(name = "password", nullable = false)
     String password;
 
     @Column(name = "user_description")
+    @Size(max = 150)
     String description;
 
     @OneToMany(fetch = FetchType.LAZY)

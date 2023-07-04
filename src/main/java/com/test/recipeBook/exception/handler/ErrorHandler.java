@@ -20,7 +20,11 @@ import java.util.List;
 public class ErrorHandler {
 
     @ExceptionHandler({IngredientNotFoundException.class,
-            TagNotFoundException.class, RecipeNotFoundException.class, UserNotFoundException.class})
+            TagNotFoundException.class,
+            RecipeNotFoundException.class,
+            UserNotFoundException.class,
+            RecipeByTagNotFoundException.class,
+            RecipeByNameNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleNotFoundException(final RuntimeException e) {
         log.info(HttpStatus.BAD_REQUEST + ": " + e.getMessage());

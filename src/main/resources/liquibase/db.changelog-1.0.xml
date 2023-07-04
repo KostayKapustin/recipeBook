@@ -38,7 +38,7 @@
             <constraints nullable="false"/>
         </column>
 
-        <column name="password" type="VARCHAR(100)">
+        <column name="password" type="VARCHAR(255)">
             <constraints nullable="false"/>
         </column>
 

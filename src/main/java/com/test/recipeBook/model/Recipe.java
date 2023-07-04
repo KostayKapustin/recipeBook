@@ -1,6 +1,7 @@
 package com.test.recipeBook.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class Recipe {
     Long id;
 
     @Column(name = "recipe_name", nullable = false)
+    @Size(max = 50)
     String name;
 
     @Column(name = "imagePath")

@@ -1,5 +1,6 @@
 package com.test.recipeBook.exception.handler;
 
+import com.test.recipeBook.exception.AuthException;
 import com.test.recipeBook.exception.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -9,7 +10,7 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.security.auth.message.AuthException;
+
 import javax.servlet.http.HttpServletResponse;
 
 @RestControllerAdvice
