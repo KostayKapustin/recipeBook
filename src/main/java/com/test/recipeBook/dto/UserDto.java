@@ -1,4 +1,4 @@
-package com.test.recipeBook.dto;
+package com.test.recipeBook.config.dto;
 
 import com.test.recipeBook.model.Recipe;
 import lombok.AccessLevel;

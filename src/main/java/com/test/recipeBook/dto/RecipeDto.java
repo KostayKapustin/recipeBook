@@ -1,4 +1,4 @@
-package com.test.recipeBook.dto;
+package com.test.recipeBook.config.dto;
 
 import com.test.recipeBook.model.Ingredient;
 import com.test.recipeBook.model.Tag;
