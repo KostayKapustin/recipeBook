@@ -1,5 +1,19 @@
 version: '3.9'
 services:
+  recipe:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      image: recipe-book
+      container_name: recipe-book
+      depends_on:
+        -   redis
+        -   postgres
+      environment:
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/recipe_book
+        - SPRING_DATASOURCE_USERNAME=user
+        - SPRING_DATASOURCE_PASSWORD=password
+
   redis:
     image: "redis:alpine"
     command: redis-server --requirepass redispw
@@ -12,8 +26,8 @@ services:
       - REDIS_REPLICATION_MODE=master
 
   postgres:
-    image: postgres:14-alpine
-    container_name: recipe_book_container
+    image: "postgres:14-alpine"
+    container_name: postgres
     ports:
       - "6542:5432"
     environment:

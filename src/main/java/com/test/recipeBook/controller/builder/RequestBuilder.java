@@ -1,4 +1,4 @@
-package com.test.recipeBook.controller;
+package com.test.recipeBook.controller.builder;
 
 import javax.servlet.http.HttpServletRequest;
 

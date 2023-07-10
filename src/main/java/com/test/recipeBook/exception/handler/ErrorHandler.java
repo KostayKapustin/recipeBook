@@ -24,6 +24,7 @@ public class ErrorHandler {
             RecipeNotFoundException.class,
             UserNotFoundException.class,
             RecipeByTagNotFoundException.class,
+            RepetitionsException.class,
             RecipeByNameNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleNotFoundException(final RuntimeException e) {

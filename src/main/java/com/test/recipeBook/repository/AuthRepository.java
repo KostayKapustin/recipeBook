@@ -26,8 +26,7 @@ public class AuthRepository {
 
     public JwtResponse login(@NonNull JwtRequest authRequest) throws AuthException {
         final User user = userService.getByLogin(authRequest.getLogin()).get();
-        System.out.println(user);
-        if (user.getPassword().equals(authRequest.getPassword())) {
+        if (userService.verificationPassword(authRequest)) {
             final String accessToken = jwtProvider.generateAccessToken(user);
             final String refreshToken = jwtProvider.generateRefreshToken(user);
             service.setValue(user.getLogin(), refreshToken);

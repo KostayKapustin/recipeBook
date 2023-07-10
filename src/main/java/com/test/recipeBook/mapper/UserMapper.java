@@ -29,7 +29,9 @@ public class UserMapper {
         userDto.setLogin(user.getLogin());
         userDto.setPassword(user.getPassword());
         userDto.setDescription(user.getDescription());
-        userDto.setMyRecipes(user.getMyRecipes());
+        for(var recipe : user.getMyRecipes()){
+            userDto.getMyRecipes().add(RecipeMapper.toRecipeDto(recipe));
+        }
         return userDto;
     }
 

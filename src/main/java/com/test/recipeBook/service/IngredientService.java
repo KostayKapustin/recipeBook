@@ -1,10 +1,11 @@
 package com.test.recipeBook.service;
 
 import com.test.recipeBook.dto.IngredientDto;
-import com.test.recipeBook.dto.RecipeDto;
+import com.test.recipeBook.model.Recipe;
 
 public interface IngredientService {
-    RecipeDto addIngredient(Long id, IngredientDto ingredientDto);
+
+    Recipe addIngredient(Recipe recipe, IngredientDto ingredientDto);
 
     IngredientDto updateIngredient(Long id, IngredientDto ingredientDto);
 

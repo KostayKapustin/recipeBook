@@ -1,8 +1,7 @@
-package com.test.recipeBook.config.dto;
+package com.test.recipeBook.dto;
 
-import com.test.recipeBook.model.Ingredient;
-import com.test.recipeBook.model.Tag;
-import com.test.recipeBook.model.User;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -16,32 +15,43 @@ import java.util.List;
 @Data
 @Validated
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ApiModel(value = "Рецепты" , description ="Класс объектов для последующей передачи данных")
 public class RecipeDto {
 
+    @ApiModelProperty(notes = "Имя", required = true, example = "Клубничная панна-котта",  position = 0)
     @NotNull(message = "Name не может быть пустым")
     @Size(max = 50)
     String name;
 
+    @ApiModelProperty(notes = "Ссылка на фото", required = true,  position = 1)
     @NotNull(message = "ImagePath не может быть пустым")
     String imagePath;
 
+    @ApiModelProperty(notes = "Описание", required = true, example = "Десерт, который ...",  position = 2)
     @NotNull(message = "Description не может быть пустым")
     @Size(max = 150)
     String description;
 
-    List<Tag> tags = new ArrayList<>();
+    @ApiModelProperty(notes = "Список тегов", example = "Детское, мясо, десерты",  position = 3)
+    List<TagDto> tags = new ArrayList<>();
 
+    @ApiModelProperty(notes = "Время приготовления", required = true, example = "40",  position = 4)
     @NotNull(message = "CookingTime не может быть пустым")
     Integer cookingTime;
 
+    @ApiModelProperty(notes = "Количество порций", required = true, example = "3",  position = 5)
     @NotNull(message = "PortionsDish не может быть пустым")
     Integer portionsDish;
 
-    List<Ingredient> ingredients = new ArrayList<>();
+    @ApiModelProperty(notes = "Список ингредиентов", position = 6)
+    List<IngredientDto> ingredients = new ArrayList<>();
 
-    List<User> favorites = new ArrayList<>();
+    @ApiModelProperty(notes = "Список пользователей, которые добавили в избранные", position = 7)
+    List<UserDto> favorites = new ArrayList<>();
 
-    List<User> likes = new ArrayList<>();
+    @ApiModelProperty(notes = "Список лайкнувших пользователей", position = 8)
+    List<UserDto> likes = new ArrayList<>();
 
+    @ApiModelProperty(notes = "Список шагов", position = 9)
     List<String> descriptionStep = new ArrayList<>();
 }
